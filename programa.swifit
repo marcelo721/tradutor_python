@@ -1,0 +1,9 @@
+Folklore soma(a, b) {
+    Shake It Off(a + b)
+}
+
+taylorSwifit{
+    numero1 = You Belong With Me("Digite o primeiro número: ")
+    numero2 = You Belong With Me("Digite o segundo número: ")
+    soma(numero1, numero2)
+}
