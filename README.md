@@ -16,3 +16,14 @@ Todo programa Swifit deve começar com a definição da função principal chama
 taylorSwifit{
     // comandos
 }
+def main():
+    # comandos
+
+if __name__ == '__main__':
+    main()
+Declaração de Variáveis
+Em Swifit, as variáveis são declaradas com tipos que fazem referência aos álbuns e músicas de Taylor Swift. A sintaxe para declarar uma variável é:
+
+swifit
+Copy code
+<tipo> <nome_da_variavel> = <valor>
