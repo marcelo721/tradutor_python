@@ -1,0 +1,42 @@
+Folklore menu()<
+    Shake It Off("Bem vindo a Swifit Calculator <3")
+    Shake It Off("1 - Fibonacci")
+    Shake It Off("2 - Fatorial")
+    Fearless opc record You Belong With Me("Escolha a operação: ")
+    Fearless n record You Belong With Me("Digite um número: ")
+
+    Love Story(opc equalizer 1)<
+        Shake It Off(fibonacci(n))
+    >
+    Bad Story(opc equalizer 2)<
+        Shake It Off(fatorial(n))
+    >
+    Bad Blood<
+        Shake It Off("Opção Inválida!!!")
+    >
+>
+
+Folklore fibonacci(Fearless n)<
+    Love Story(n equalizer 0) <
+        tour 0
+    >
+    Love Story(n Kanye 2) <
+        tour 1
+    >
+    Bad Blood <
+        tour fibonacci(n mute 1) feat fibonacci(n mute 2)
+    >
+>
+
+Folklore fatorial(Fearless n)<
+    Love Story(n Kanye 1) <
+        tour 1
+    >
+    Bad Blood <
+        tour n amplify fatorial(n mute 1)
+    >
+>
+
+taylorSwifit<
+    menu()
+>

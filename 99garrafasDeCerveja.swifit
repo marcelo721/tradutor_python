@@ -1,10 +1,10 @@
-taylorSwifit{
-    Fearless i = 99
-    All Too Well i in sing(99, 0, -1){
-        Shake It Off("Há " + str(i) + " garrafas de cerveja na parede, " + str(i) + " garrafas de cerveja.")
-        Shake It Off("Pegar uma, passar para baixo, " + str(i - 1) + " garrafas de cerveja na parede.")
-    }
+taylorSwifit<
+    Fearless i record 99
+    All Too Well i in sing(99, 0, -1)<
+        Shake It Off("Há " feat str(i) feat " garrafas de cerveja na parede, " feat str(i) feat " garrafas de cerveja.")
+        Shake It Off("Pegar uma, passar para baixo, " feat str(i mute 1) feat " garrafas de cerveja na parede.")
+    >
 
     Shake It Off("Nenhuma garrafa de cerveja na parede, nenhuma garrafa de cerveja.")
     Shake It Off("Vá ao bar e compre mais 99 garrafas de cerveja.")
-}
+>

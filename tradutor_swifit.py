@@ -1,16 +1,27 @@
 import os
-import sys
 import subprocess
+import sys
+
 
 def traduzir_linha_swifit(linha, nivel_indentacao, tipos_variaveis_swifit):
     comandos_swifit = {
         "Love Story": "if",
         "Bad Blood": "else",
+        "Bad Story": "elif",
         "You Belong With Me": "input",
         "Shake It Off": "print",
         "All Too Well": "for",
         "Folklore": "def",
         "sing": "range",
+        "tour": "return",
+        "record": "=",
+        "equalizer": "==",
+        "feat": "+",
+        "amplify": "*",
+        "mute": "-",
+        "harmonize": "/",
+        "Kanye": "<=",
+        "West": ">=",
     }
 
     # Substitui comandos Swifit por Python
@@ -35,6 +46,7 @@ def traduzir_linha_swifit(linha, nivel_indentacao, tipos_variaveis_swifit):
 
     return linha
 
+
 def verificar_tipo_variaveis(linhas, tipos_variaveis_swifit):
     tipos_definidos = set(tipos_variaveis_swifit.keys())
     # Verifica se há variáveis sem tipo definido
@@ -44,6 +56,7 @@ def verificar_tipo_variaveis(linhas, tipos_variaveis_swifit):
                 return True
     # Não há variáveis, então não há erro
     return False
+
 
 def traduzir_arquivo_swifit(arquivo_entrada):
     tipos_variaveis_swifit = {
@@ -55,17 +68,19 @@ def traduzir_arquivo_swifit(arquivo_entrada):
     arquivo_saida = os.path.splitext(arquivo_entrada)[0] + ".py"
 
     try:
-        with open(arquivo_entrada, 'r') as entrada:
+        with open(arquivo_entrada, "r") as entrada:
             linhas = entrada.readlines()
     except FileNotFoundError:
         print(f"Arquivo '{arquivo_entrada}' não encontrado.")
         return
 
-    if verificar_tipo_variaveis(linhas, tipos_variaveis_swifit) and not any(tipo in linha for tipo in tipos_variaveis_swifit.keys() for linha in linhas):
+    if verificar_tipo_variaveis(linhas, tipos_variaveis_swifit) and not any(
+        tipo in linha for tipo in tipos_variaveis_swifit.keys() for linha in linhas
+    ):
         print("Erro: As variáveis não têm um tipo definido.")
         return
 
-    with open(arquivo_saida, 'w') as saida:
+    with open(arquivo_saida, "w") as saida:
         nivel_indentacao = 0
         dentro_taylor_swifit = False
         dentro_funcao = False
@@ -73,44 +88,62 @@ def traduzir_arquivo_swifit(arquivo_entrada):
         for linha in linhas:
             linha = linha.strip()
 
-            if linha.startswith("taylorSwifit{"):
+            if linha.startswith("taylorSwifit<"):
                 saida.write("def main():\n")
                 nivel_indentacao += 1
                 dentro_taylor_swifit = True
                 dentro_funcao = False
 
-            elif linha == "}":
+            elif linha == ">":
                 nivel_indentacao -= 1
                 if dentro_funcao:
                     dentro_funcao = False
                 elif dentro_taylor_swifit:
                     dentro_taylor_swifit = False
 
-            elif linha.endswith("{"):
-                saida.write('    ' * nivel_indentacao + traduzir_linha_swifit(linha[:-1], nivel_indentacao, tipos_variaveis_swifit) + ':\n')
+            elif linha.endswith("<"):
+                saida.write(
+                    "    " * nivel_indentacao
+                    + traduzir_linha_swifit(
+                        linha[:-1], nivel_indentacao, tipos_variaveis_swifit
+                    )
+                    + ":\n"
+                )
                 nivel_indentacao += 1
                 dentro_funcao = linha.startswith("def ")
 
             else:
-                linha_traduzida = traduzir_linha_swifit(linha, nivel_indentacao, tipos_variaveis_swifit).lstrip()
+                linha_traduzida = traduzir_linha_swifit(
+                    linha, nivel_indentacao, tipos_variaveis_swifit
+                ).lstrip()
 
                 # Adiciona a indentação correta se necessário
                 if nivel_indentacao > 0:
-                    linha_traduzida = '    ' * nivel_indentacao + linha_traduzida
-                
-                saida.write(linha_traduzida + '\n')
+                    linha_traduzida = "    " * nivel_indentacao + linha_traduzida
+
+                if "input(" in linha_traduzida:
+                    for tipo_swifit, tipo_python in tipos_variaveis_swifit.items():
+                        if tipo_swifit in linha:
+                            linha_traduzida = linha_traduzida.replace(
+                                "input(", f"{tipo_python}(input("
+                            )
+                    linha_traduzida += ")"
+
+                saida.write(linha_traduzida + "\n")
 
         saida.write("\nif __name__ == '__main__':\n")
-        saida.write('    main()\n')
+        saida.write("    main()\n")
 
     print(f"Tradução concluída. Arquivo salvo como {arquivo_saida}")
     return arquivo_saida
+
 
 def executar_codigo_python(arquivo_python):
     try:
         subprocess.run(["python", arquivo_python], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Erro ao executar {arquivo_python}: {e}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
